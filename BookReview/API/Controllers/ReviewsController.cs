@@ -39,7 +39,8 @@ namespace BookReview.API.Controllers
         {
             try
             {
-                await _reviewService.AddReview(reviewWriteDTO, _http.HttpContext?.User.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value!);
+                var userId = _http.HttpContext?.User.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value!;
+                await _reviewService.AddReview(reviewWriteDTO, userId);
                 return Ok();
             }
             catch (Exception ex)
