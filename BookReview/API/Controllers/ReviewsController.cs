@@ -1,18 +1,23 @@
 ﻿using BookReview.Application.DTOs;
 using BookReview.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BookReview.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReviewsController : ControllerBase
     {
         private readonly ReviewService _reviewService;
+        private readonly IHttpContextAccessor _http;
 
-        public ReviewsController(ReviewService reviewService)
+        public ReviewsController(ReviewService reviewService, IHttpContextAccessor httpContextAccessor)
         {
             _reviewService = reviewService;
+            _http = httpContextAccessor;
         }
 
         [HttpGet("reviews")]
@@ -34,7 +39,7 @@ namespace BookReview.API.Controllers
         {
             try
             {
-                await _reviewService.AddReview(reviewWriteDTO);
+                await _reviewService.AddReview(reviewWriteDTO, _http.HttpContext?.User.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value!);
                 return Ok();
             }
             catch (Exception ex)

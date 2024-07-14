@@ -24,12 +24,13 @@ namespace BookReview.Application.Services
             return filtered;
         }
 
-        public async Task AddReview(ReviewWriteDTO reviewDTO)
+        public async Task AddReview(ReviewWriteDTO reviewDTO, string UserId)
         {
             var review = new Review
             {
                 BookId = reviewDTO.BookId,
-                Text = reviewDTO.Text
+                Text = reviewDTO.Text,
+                UserId = UserId
             };
             await _reviewRepo.AddAsync(review);
         }

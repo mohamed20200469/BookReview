@@ -9,6 +9,7 @@ namespace BookReview.Infrastructure.Data
 
         DbSet<Book> Books { get; set; }
         DbSet<Review> Reviews { get; set; }
+        DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
