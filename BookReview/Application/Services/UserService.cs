@@ -22,7 +22,8 @@ namespace BookReview.Application.Services
                 Id = Guid.NewGuid().ToString(),
                 Name = userDTO.Name,
                 Email = userDTO.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDTO.Password)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDTO.Password),
+                Role = "User"
             };
 
             await _userRepository.AddAsync(user);

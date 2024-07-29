@@ -24,6 +24,15 @@ namespace BookReview.Infrastructure.Data
                 Id = 2,
                 Title = "The Art of War"
             });
+
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Idris",
+                Email = "mohamedmagdyy01@hotmail.com",
+                Role = "Admin",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("mohamed1")
+            });
         }
     }
 }
